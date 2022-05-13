@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -22,15 +22,12 @@ const NavBar = () => {
     navigate('/')
   }
 
-  const { colorMode } = useContext(CryptoTrackerContext)
+  const { colorMode, currency, handleCurrencyChange } =
+    useContext(CryptoTrackerContext)
 
   const { navBarTitle } = useStyles()
-  const [currency, setAge] = useState('')
   const theme = useTheme()
 
-  const handleChange = (event) => {
-    setAge(event.target.value)
-  }
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -50,7 +47,7 @@ const NavBar = () => {
             id='demo-simple-select'
             value={currency}
             label='currency'
-            onChange={handleChange}
+            onChange={handleCurrencyChange}
             style={{ width: 100, height: 40, marginRight: '10px' }}
           >
             <MenuItem value={'USD'}>USD</MenuItem>
