@@ -18,17 +18,18 @@ export const useStyles = makeStyles({
     backgroundImage: `url(${images.banner})`,
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
-    opacity: 0.5,
   },
   bannerTitle: {
     fontWeight: 'bold',
     marginBottom: 15,
-    fontFamily: 'Montserrat',
+    // fontFamily: 'Montserrat',
+    color: 'white'
   },
   bannerSubTitle: {
-    color: 'darkgrey',
+    color: 'white',
     textTransform: 'capitalize',
-    fontFamily: 'Montserrat',
+    // fontFamily: 'Montserrat',
+
   },
   tagLine: {
     display: 'flex',
