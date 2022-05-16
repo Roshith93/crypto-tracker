@@ -23,13 +23,12 @@ export const useStyles = makeStyles({
     fontWeight: 'bold',
     marginBottom: 15,
     // fontFamily: 'Montserrat',
-    color: 'white'
+    color: 'white',
   },
   bannerSubTitle: {
     color: 'white',
     textTransform: 'capitalize',
     // fontFamily: 'Montserrat',
-
   },
   tagLine: {
     display: 'flex',
@@ -44,5 +43,10 @@ export const useStyles = makeStyles({
     flexDirection: 'column',
     paddingTop: 25,
     justifyContent: 'space-around',
+  },
+  carouselBody: {
+    height: '50%',
+    display: 'flex',
+    alignItems: 'center',
   },
 })

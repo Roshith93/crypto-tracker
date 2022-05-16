@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import 'react-alice-carousel/lib/alice-carousel.css'
+
 
 import { BrowserRouter as Router } from 'react-router-dom'
 

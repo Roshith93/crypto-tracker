@@ -1,5 +1,8 @@
 import { useState, useMemo, useEffect, createContext } from 'react'
 import { createTheme } from '@mui/material/styles'
+import axios from 'axios'
+
+import { getTrendingCoins } from '../constant/configuration'
 
 export const CryptoTrackerContext = createContext()
 
@@ -7,6 +10,7 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [currency, setCurrency] = useState('INR')
   const [symbol, setSymbol] = useState('₹')
   const [mode, setMode] = useState('light')
+  const [trendingCoins, setTrendingCoins] = useState([])
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -15,6 +19,22 @@ export const CryptoTrackerProvider = ({ children }) => {
   useEffect(() => {
     if (currency === 'INR') setSymbol('₹')
     if (currency === 'USD') setSymbol('$')
+  }, [currency])
+
+  // == Trending Coins
+  const fetchTrendingCoins = async () => {
+    const { data, status } = await axios.get(getTrendingCoins(currency))
+    try {
+      if (status === 200) {
+        setTrendingCoins(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchTrendingCoins()
   }, [currency])
 
   const colorMode = useMemo(
@@ -36,7 +56,7 @@ export const CryptoTrackerProvider = ({ children }) => {
   )
   return (
     <CryptoTrackerContext.Provider
-      value={{ colorMode, theme, currency, symbol, handleCurrencyChange }}
+      value={{ colorMode, theme, currency, symbol, handleCurrencyChange, trendingCoins }}
     >
       {children}
     </CryptoTrackerContext.Provider>

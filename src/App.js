@@ -15,7 +15,6 @@ function App() {
       <CssBaseline />
       <div className={'root'}>
         <NavBar />
-        <h2> Crypto Tracker</h2>
         <Routes>
           <Route path='/' element={<Dashboard />} exact />
           <Route path='/currency-details/:id' element={<CoinDetails />} exact />
