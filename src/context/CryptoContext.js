@@ -54,9 +54,22 @@ export const CryptoTrackerProvider = ({ children }) => {
       }),
     [mode]
   )
+
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
   return (
     <CryptoTrackerContext.Provider
-      value={{ colorMode, theme, currency, symbol, handleCurrencyChange, trendingCoins }}
+      value={{
+        colorMode,
+        theme,
+        currency,
+        symbol,
+        handleCurrencyChange,
+        trendingCoins,
+        numberWithCommas
+      }}
     >
       {children}
     </CryptoTrackerContext.Provider>

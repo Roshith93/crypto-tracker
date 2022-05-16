@@ -49,4 +49,12 @@ export const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
   },
+  carouselItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    cursor: 'pointer',
+    textTransform: 'uppercase',
+    color: 'white',
+  },
 })

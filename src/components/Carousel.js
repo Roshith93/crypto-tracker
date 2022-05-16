@@ -6,28 +6,38 @@ import { useStyles } from '../constant/ComponentStyles'
 import { CryptoTrackerContext } from '../context/CryptoContext'
 import { carouselProps } from '../constant/configuration'
 
-const handleDragStart = (e) => e.preventDefault()
-
 const Carousel = () => {
-  const { carouselBody } = useStyles()
-  const { trendingCoins } = useContext(CryptoTrackerContext)
+  const { carouselBody, carouselItem } = useStyles()
+  const { trendingCoins, symbol, numberWithCommas } =
+    useContext(CryptoTrackerContext)
 
   const items =
     trendingCoins &&
     trendingCoins.map((coin) => {
+      let profit = coin.price_change_percentage_24h >= 0
       return (
-        <Link to={`/coin/${coin?.id}`} className='carouselItem'>
+        <Link to={`/coin/${coin?.id}`} className={carouselItem}>
           <img
             src={coin?.image}
             alt={coin?.name}
             key={coin?.id}
-            onDragStart={handleDragStart}
+            height='80'
             role='presentation'
+            style={{ marginBottom: '15' }}
           />
+          <span>{coin?.symbol} &nbsp;
+          <span
+            style={{ color: `${profit ? 'green' : 'red'}`, fontWeight: '500' }}
+          >
+            {profit && '+'} {coin.price_change_percentage_24h}
+          </span></span>
+          <span style={{ fontSize: 22, fontWeight: 500 }}>
+            {symbol}
+            {numberWithCommas(coin.current_price.toFixed(2))}
+          </span>
         </Link>
       )
     })
-  console.log(items)
   return (
     <div className={carouselBody}>
       {' '}
