@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 
 import { useStyles } from '../constant/ComponentStyles'
 import { CryptoTrackerContext } from '../context/CryptoContext'
-import { carouselProps } from '../constant/configuration'
+import { carouselProps , numberWithCommas} from '../constant/configuration'
 
 const Carousel = () => {
   const { carouselBody, carouselItem } = useStyles()
-  const { trendingCoins, symbol, numberWithCommas } =
+  const { trendingCoins, symbol } =
     useContext(CryptoTrackerContext)
 
   const items =

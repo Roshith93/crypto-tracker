@@ -1,11 +1,12 @@
 import React from 'react'
 import { Banner } from '../components/'
+import CoinsTable from '../components/CoinsTable'
 
 const Dashboard = () => {
   return (
     <div>
       <Banner />
-      <h1>Table</h1>
+      <CoinsTable/>
     </div>
   )
 }

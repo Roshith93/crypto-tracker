@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, createContext } from 'react'
 import { createTheme } from '@mui/material/styles'
 import axios from 'axios'
 
-import { getTrendingCoins } from '../constant/configuration'
+import { getTrendingCoins, getCoinList } from '../constant/configuration'
 
 export const CryptoTrackerContext = createContext()
 
@@ -11,6 +11,8 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [symbol, setSymbol] = useState('₹')
   const [mode, setMode] = useState('light')
   const [trendingCoins, setTrendingCoins] = useState([])
+  const [coinLists, setCoinLists] = useState([])
+  const [searchValue, setSearchValue] = useState('')
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -37,6 +39,23 @@ export const CryptoTrackerProvider = ({ children }) => {
     fetchTrendingCoins()
   }, [currency])
 
+  //  == Fetch coinsTable
+
+  const fetchCoinLists = async () => {
+    const { data, status } = await axios.get(getCoinList(currency))
+    try {
+      if (status === 200) {
+        setCoinLists(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchCoinLists()
+  }, [currency])
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -55,8 +74,8 @@ export const CryptoTrackerProvider = ({ children }) => {
     [mode]
   )
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  const getCoinSearchValue = event => {
+    setSearchValue(event.target.value)
   }
 
   return (
@@ -68,7 +87,8 @@ export const CryptoTrackerProvider = ({ children }) => {
         symbol,
         handleCurrencyChange,
         trendingCoins,
-        numberWithCommas
+        coinLists,
+        getCoinSearchValue
       }}
     >
       {children}
