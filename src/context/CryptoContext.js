@@ -74,8 +74,17 @@ export const CryptoTrackerProvider = ({ children }) => {
     [mode]
   )
 
-  const getCoinSearchValue = event => {
+  const getCoinSearchValue = (event) => {
     setSearchValue(event.target.value)
+  }
+
+  const handleSearchCoins = () => {
+    let lists = coinLists.filter(
+      (coin) =>
+        coin.symbol.includes(searchValue) ||
+        coin.name.toLowerCase().includes(searchValue)
+    )
+    return lists
   }
 
   return (
@@ -88,7 +97,8 @@ export const CryptoTrackerProvider = ({ children }) => {
         handleCurrencyChange,
         trendingCoins,
         coinLists,
-        getCoinSearchValue
+        getCoinSearchValue,
+        handleSearchCoins
       }}
     >
       {children}

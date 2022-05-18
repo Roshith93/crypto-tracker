@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow'
 import { CryptoTrackerContext } from '../context/CryptoContext'
 
 export default function StickyHeadTable() {
-  const { coinLists } = useContext(CryptoTrackerContext)
+  const { coinLists, handleSearchCoins } = useContext(CryptoTrackerContext)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -23,7 +23,7 @@ export default function StickyHeadTable() {
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-
+  
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -37,7 +37,7 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {coinLists
+            {handleSearchCoins()
               // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((coin) => {
                 return (
