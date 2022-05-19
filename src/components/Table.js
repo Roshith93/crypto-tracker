@@ -70,7 +70,7 @@ export default function StickyHeadTable() {
                         role='checkbox'
                         tabIndex={-1}
                         key={coin.id}
-                        onClick={() => navigate(`/coins/${coin.id}`)}
+                        onClick={() => navigate(`/coin/${coin.id}`)}
                         className={tableRow}
                       >
                         <TableCell

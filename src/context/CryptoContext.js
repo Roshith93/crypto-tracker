@@ -14,6 +14,7 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [coinLists, setCoinLists] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [coinDetail, setCoinDetail] = useState('')
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -93,7 +94,6 @@ export const CryptoTrackerProvider = ({ children }) => {
     // }, 500)
     return lists
   }
-
   return (
     <CryptoTrackerContext.Provider
       value={{
@@ -106,7 +106,8 @@ export const CryptoTrackerProvider = ({ children }) => {
         coinLists,
         getCoinSearchValue,
         handleSearchCoins,
-        isLoading
+        isLoading,
+        setCoinDetail
       }}
     >
       {children}
