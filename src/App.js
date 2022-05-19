@@ -17,7 +17,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path='/' element={<Dashboard />} exact />
-          <Route path='/currency-details/:id' element={<CoinDetails />} exact />
+          <Route path='/coin/:id' element={<CoinDetails />} exact />
         </Routes>
       </div>
     </ThemeProvider>
