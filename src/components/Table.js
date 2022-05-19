@@ -7,12 +7,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
+import { useNavigate } from 'react-router-dom'
 
 import { CryptoTrackerContext } from '../context/CryptoContext'
 import LinearIndeterminate from './ProgressBar'
+import { useStyles } from '../constant/ComponentStyles'
+import { numberWithCommas } from '../constant/configuration'
 
 export default function StickyHeadTable() {
-  const { handleSearchCoins } = useContext(CryptoTrackerContext)
+  const { handleSearchCoins, symbol, isLoading } =
+    useContext(CryptoTrackerContext)
+  const { tableRow } = useStyles()
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -25,6 +30,7 @@ export default function StickyHeadTable() {
     setPage(0)
   }
 
+  let navigate = useNavigate()
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -32,35 +38,89 @@ export default function StickyHeadTable() {
           <TableHead>
             <TableRow>
               {['Coin', 'Price', '24h Change', 'Market Cap'].map((column) => {
-                return <TableCell key={column}>{column}</TableCell>
+                return (
+                  <TableCell
+                    key={column}
+                    style={{ fontWeight: 700 }}
+                    // align={column === 'Coin' ? '' : 'right'}
+                  >
+                    {column}
+                  </TableCell>
+                )
               })}
             </TableRow>
           </TableHead>
           <TableBody>
-            {!handleSearchCoins().length ? (
+            {isLoading ? (
               <TableRow>
                 <TableCell rowSpan={10} />
                 <TableCell colSpan={4}>
                   <LinearIndeterminate />
                 </TableCell>
               </TableRow>
-            ) : (
+            ) : handleSearchCoins().length > 0 ? (
               handleSearchCoins()
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((coin) => {
+                  const profit = coin.price_change_percentage_24h > 0
                   return (
-                    <TableRow hover role='checkbox' tabIndex={-1} key={coin.id}>
-                      <TableCell>
-                        <img src={coin?.image} alt={coin.id} height='20' />
-                        <span>{coin?.id}</span>
-                        <span>{coin?.name}</span>
-                      </TableCell>
-                      <TableCell>{coin?.current_price}</TableCell>
-                      <TableCell>{coin.price_change_24h}</TableCell>
-                      <TableCell>{coin.market_cap}</TableCell>
-                    </TableRow>
+                    <>
+                      <TableRow
+                        hover
+                        role='checkbox'
+                        tabIndex={-1}
+                        key={coin.id}
+                        onClick={() => navigate(`/coins/${coin.id}`)}
+                        className={tableRow}
+                      >
+                        <TableCell
+                          style={{ display: 'flex', gap: 15 }}
+                          component='th'
+                          scope='row'
+                        >
+                          <img
+                            src={coin?.image}
+                            alt={coin.id}
+                            height='40'
+                            style={{ marginBottom: 10 }}
+                          />
+                          <div
+                            style={{ display: 'flex', flexDirection: 'column' }}
+                          >
+                            <span
+                              style={{
+                                textTransform: 'uppercase',
+                                fontSize: 22,
+                              }}
+                            >
+                              {coin?.symbol}
+                            </span>
+                            <span style={{ color: 'darkgrey' }}>
+                              {coin?.name}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {symbol} {numberWithCommas(coin?.current_price)}
+                        </TableCell>
+                        <TableCell
+                          style={{ color: `${profit ? 'green' : 'red'} ` }}
+                        >
+                          {profit && '+'}
+                          {coin.price_change_percentage_24h.toFixed(2)}%
+                        </TableCell>
+                        <TableCell>
+                          {numberWithCommas(coin?.market_cap)}
+                        </TableCell>
+                      </TableRow>
+                    </>
                   )
                 })
+            ) : (
+              <TableRow>
+                {' '}
+                <TableCell colSpan={4} style={{textAlign:'center'}}>No data found</TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

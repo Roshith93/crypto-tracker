@@ -13,6 +13,7 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [trendingCoins, setTrendingCoins] = useState([])
   const [coinLists, setCoinLists] = useState([])
   const [searchValue, setSearchValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -42,10 +43,13 @@ export const CryptoTrackerProvider = ({ children }) => {
   //  == Fetch coinsTable
 
   const fetchCoinLists = async () => {
+    setIsLoading(true)
     const { data, status } = await axios.get(getCoinList(currency))
     try {
       if (status === 200) {
         setCoinLists(data)
+        setIsLoading(false)
+        
       }
     } catch (err) {
       console.log(err)
@@ -102,6 +106,7 @@ export const CryptoTrackerProvider = ({ children }) => {
         coinLists,
         getCoinSearchValue,
         handleSearchCoins,
+        isLoading
       }}
     >
       {children}

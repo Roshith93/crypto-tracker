@@ -57,4 +57,7 @@ export const useStyles = makeStyles({
     textTransform: 'uppercase',
     color: 'white',
   },
+  tableRow:{
+    cursor:'pointer'
+  }
 })
