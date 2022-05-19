@@ -79,11 +79,14 @@ export const CryptoTrackerProvider = ({ children }) => {
   }
 
   const handleSearchCoins = () => {
-    let lists = coinLists.filter(
-      (coin) =>
-        coin.symbol.includes(searchValue) ||
-        coin.name.toLowerCase().includes(searchValue)
-    )
+    let lists = []
+    // setTimeout(() => {
+      lists=   coinLists.filter(
+        (coin) =>
+          coin.symbol.includes(searchValue) ||
+          coin.name.toLowerCase().includes(searchValue)
+      )
+    // }, 500)
     return lists
   }
 
@@ -98,7 +101,7 @@ export const CryptoTrackerProvider = ({ children }) => {
         trendingCoins,
         coinLists,
         getCoinSearchValue,
-        handleSearchCoins
+        handleSearchCoins,
       }}
     >
       {children}

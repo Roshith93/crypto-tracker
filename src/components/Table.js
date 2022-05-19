@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 
 import { CryptoTrackerContext } from '../context/CryptoContext'
+import LinearIndeterminate from './ProgressBar'
 
 export default function StickyHeadTable() {
   const { handleSearchCoins } = useContext(CryptoTrackerContext)
@@ -23,7 +24,7 @@ export default function StickyHeadTable() {
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-  
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -36,35 +37,38 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {handleSearchCoins()
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((coin) => {
-                return (
-                  <TableRow hover role='checkbox' tabIndex={-1} key={coin.id}>
-                    <TableCell>
-                      <img src={coin?.image} alt={coin.id} height='20' />
-                      <span>{coin?.id}</span>
-                      <span>{coin?.name}</span>
-                    </TableCell>
-                    <TableCell>
-                      {coin?.current_price}
-                    </TableCell>
-                    <TableCell>
-                      {coin.price_change_24h}
-                    </TableCell>
-                    <TableCell>
-                      {coin.market_cap}
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+            {!handleSearchCoins().length ? (
+              <TableRow>
+                <TableCell rowSpan={10} />
+                <TableCell colSpan={4}>
+                  <LinearIndeterminate />
+                </TableCell>
+              </TableRow>
+            ) : (
+              handleSearchCoins()
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((coin) => {
+                  return (
+                    <TableRow hover role='checkbox' tabIndex={-1} key={coin.id}>
+                      <TableCell>
+                        <img src={coin?.image} alt={coin.id} height='20' />
+                        <span>{coin?.id}</span>
+                        <span>{coin?.name}</span>
+                      </TableCell>
+                      <TableCell>{coin?.current_price}</TableCell>
+                      <TableCell>{coin.price_change_24h}</TableCell>
+                      <TableCell>{coin.market_cap}</TableCell>
+                    </TableRow>
+                  )
+                })
+            )}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component='div'
-        count={handleSearchCoins().length}
+        count={handleSearchCoins() && handleSearchCoins().length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
