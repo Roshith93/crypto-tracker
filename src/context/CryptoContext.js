@@ -19,7 +19,7 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [coinDetail, setCoinDetail] = useState([])
-  const [coinFromParams, setCoinFromParams] = useState('')
+  const [coinFromParams, setCoinFromParams] = useState('bitcoin')
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -127,7 +127,7 @@ export const CryptoTrackerProvider = ({ children }) => {
         getCoinSearchValue,
         handleSearchCoins,
         isLoading,
-        setCoinDetail,
+        coinDetail,
         setCoinFromParams,
       }}
     >

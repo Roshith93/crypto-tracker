@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles'
 
 import images from './index'
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#141618',
     color: 'white',
@@ -57,7 +57,27 @@ export const useStyles = makeStyles({
     textTransform: 'uppercase',
     color: 'white',
   },
-  tableRow:{
-    cursor:'pointer'
-  }
-})
+  tableRow: {
+    cursor: 'pointer',
+  },
+  cpContainer: {
+    display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+  cpSidebar: {
+    width: '30%',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 25,
+    borderRight: '2px solid grey',
+  },
+  cpDescription: {},
+  cpHeading: {},
+}))
