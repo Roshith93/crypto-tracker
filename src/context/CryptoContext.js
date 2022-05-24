@@ -2,7 +2,11 @@ import { useState, useMemo, useEffect, createContext } from 'react'
 import { createTheme } from '@mui/material/styles'
 import axios from 'axios'
 
-import { getTrendingCoins, getCoinList } from '../constant/configuration'
+import {
+  getTrendingCoins,
+  getCoinList,
+  getSingleCoin,
+} from '../constant/configuration'
 
 export const CryptoTrackerContext = createContext()
 
@@ -14,7 +18,8 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [coinLists, setCoinLists] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [coinDetail, setCoinDetail] = useState('')
+  const [coinDetail, setCoinDetail] = useState([])
+  const [coinFromParams, setCoinFromParams] = useState('')
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -50,7 +55,6 @@ export const CryptoTrackerProvider = ({ children }) => {
       if (status === 200) {
         setCoinLists(data)
         setIsLoading(false)
-        
       }
     } catch (err) {
       console.log(err)
@@ -86,14 +90,30 @@ export const CryptoTrackerProvider = ({ children }) => {
   const handleSearchCoins = () => {
     let lists = []
     // setTimeout(() => {
-      lists=   coinLists.filter(
-        (coin) =>
-          coin.symbol.includes(searchValue) ||
-          coin.name.toLowerCase().includes(searchValue)
-      )
+    lists = coinLists.filter(
+      (coin) =>
+        coin.symbol.includes(searchValue) ||
+        coin.name.toLowerCase().includes(searchValue)
+    )
     // }, 500)
     return lists
   }
+
+  const getSingleCoinDetails = async () => {
+    const { status, data } = await axios.get(getSingleCoin(coinFromParams))
+    try {
+      if (status === 200) {
+        setCoinDetail(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    getSingleCoinDetails()
+  }, [coinFromParams])
+  
   return (
     <CryptoTrackerContext.Provider
       value={{
@@ -107,7 +127,8 @@ export const CryptoTrackerProvider = ({ children }) => {
         getCoinSearchValue,
         handleSearchCoins,
         isLoading,
-        setCoinDetail
+        setCoinDetail,
+        setCoinFromParams,
       }}
     >
       {children}

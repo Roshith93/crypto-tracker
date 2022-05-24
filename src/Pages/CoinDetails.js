@@ -5,9 +5,10 @@ import { CryptoTrackerContext } from '../context/CryptoContext'
 
 const CoinDetails = () => {
   let params = useParams()
-  let { setCoinDetail } = useContext(CryptoTrackerContext)
+  let { setCoinFromParams } = useContext(CryptoTrackerContext)
+  
   useEffect(() => {
-    setCoinDetail(params.id)
+    setCoinFromParams(params.id)
   }, [params.id])
 
   return <div>{`CoinPage ${params.id}`}</div>
