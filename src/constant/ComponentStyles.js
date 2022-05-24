@@ -78,6 +78,15 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: 25,
     borderRight: '2px solid grey',
   },
-  cpDescription: {},
-  cpHeading: {},
+  cpDescription: {
+    width: '100%',
+    padding: 25,
+    paddingBottom: 15,
+    paddingTop: 0,
+    textAlign: 'justify',
+  },
+  cpHeading: {
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
 }))
