@@ -8,19 +8,20 @@ import { CryptoTrackerContext } from '../context/CryptoContext'
 import { useStyles } from '../constant/ComponentStyles'
 import CoinInfo from '../components/CoinInfo'
 import { Typography } from '@mui/material'
-import { colorArray } from '../constant/configuration'
+import { colorArray, numberWithCommas } from '../constant/configuration'
+import LinearIndeterminate from '../components/ProgressBar'
 
 const CoinDetails = () => {
   let params = useParams()
-  let { setCoinFromParams, coinDetail } = useContext(CryptoTrackerContext)
-  let { cpContainer, cpSidebar, cpHeading, cpDescription, cpMarketData } =
+  let { setCoinFromParams, coinDetail, symbol, currency } = useContext(CryptoTrackerContext)
+  let { cpContainer, cpSidebar, cpHeading, cpDescription, cpMarketData, cpSpanTitle } =
     useStyles()
 
   useEffect(() => {
     setCoinFromParams(params.id)
   }, [params.id])
 
-  if (Object.values(coinDetail).length === 0) return <h3>Loading...</h3>
+  if (Object.values(coinDetail).length === 0) return <LinearIndeterminate/>
   let {
     image: { large },
     id,
@@ -28,6 +29,7 @@ const CoinDetails = () => {
     description: { en },
     market_cap_rank,
     categories,
+    market_data: {current_price : {inr, usd}, market_cap:{inr:mINR, usd:mUSD}}
   } = coinDetail
   // console.log(colorArray[Math.floor(Math.random() * 5 + 1)])
   return (
@@ -40,7 +42,17 @@ const CoinDetails = () => {
         <div className={cpMarketData}>
           <span style={{ display: 'flex' }}>
             <Typography variant='h5' className={cpHeading}>
-              Rank: {market_cap_rank}
+             <span className={cpSpanTitle}>Rank : </span> {market_cap_rank}
+            </Typography>
+          </span>
+          <span style={{ display: 'flex' }}>
+            <Typography variant='h5' className={cpHeading}>
+             <span className={cpSpanTitle}>Current Prize : </span> {currency === 'INR' ? `${symbol} ${numberWithCommas(inr)}` :  `${symbol} ${numberWithCommas(usd)}`}
+            </Typography>
+          </span>
+          <span style={{ display: 'flex' }}>
+            <Typography variant='h5' className={cpHeading}>
+             <span className={cpSpanTitle}>Market Cap : </span> {currency === 'INR' ? `${symbol} ${numberWithCommas(mINR)}` :  `${symbol} ${numberWithCommas(mUSD)}`}
             </Typography>
           </span>
         </div>

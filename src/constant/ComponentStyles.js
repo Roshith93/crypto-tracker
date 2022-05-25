@@ -89,4 +89,25 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  cpSpanTitle: {
+    fontWeight: 500,
+    fontFamily: 'inherit',
+  },
+  cpMarketData: {
+    alignSelf: 'start',
+    padding: 25,
+    paddingTop: 10,
+    width: '100%',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'start',
+    },
+  },
 }))
