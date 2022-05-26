@@ -7,16 +7,16 @@ This application helps to track cryptocurrencies with an elegant UI. It is power
 
 ## Screenshots
 
-![App Screenshot](https://i.postimg.cc/QdvKDzC1/ct.gif)
+![App Screenshot](https://i.postimg.cc/GtM9576B/ss.png)
 
 
 ## Features
 
 - :heavy_check_mark:	Live crypto currencies price details 
-- Individual details about a coin
-- Visualization with Line charts 
-- Light/dark mode toggle
-- Mobile responsive
+- :heavy_check_mark: Individual details about a coin
+- :heavy_check_mark: Visualization with Line charts 
+- :heavy_check_mark: Light/dark mode toggle
+- :heavy_check_mark: Mobile responsive
 
 
 ## Tech Stack
