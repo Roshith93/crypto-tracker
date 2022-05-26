@@ -1,0 +1,113 @@
+{
+	"entityId": "-1",
+	"dataSets": {
+		"-1": {
+			"fieldValues": {
+				"username": "CLUR_3",
+				"title": "Ms",
+				"first_name": "MK1",
+				"last_name": "lastname",
+				"npi": "1104000108",
+				"address": "address123",
+				"state": [
+					"01"
+				],
+				"city": "Birmingham",
+				"zipcode": "35005",
+				"country": [
+					"USA"
+				],
+				"telephone": "9988776655",
+				"fax": "123456",
+				"email": "CLUR_3@test.com",
+				"test_question_1": [
+					"3"
+				],
+				"test_answer_1": "Automation City",
+				"test_question_2": [
+					"8"
+				],
+				"test_answer_2": "Automation School",
+				"locale": [
+					"en_US"
+				],
+				"inactive_yn": false,
+				"crm_sync_yn": true,
+				"crm_id": "102",
+				"facilities_rg": {
+					"dataSets": {
+						"1": {
+							"fieldValues": {
+								"facility": [
+									"35"
+								],
+								"registry": [
+									"1"
+								],
+								"role": [
+									"210"
+								],
+								"enrollment_start": "01/23/2020 00:00@day",
+								"enrollment_end": "12/31/2030 00:00@day",
+								"user_type": [
+									"1"
+								],
+								"physician_user": "1003000126"
+							},
+							"id": 1,
+							"status": "A"
+						}
+					},
+					"dataOrder": [
+						1
+					]
+				}
+			},
+			"formRecordId": "-1"
+		}
+	}
+}
+
+
+HIGH VALUE = 1 - SHOW NO FIEDLS, 0
+MEDIUM - 2 - SHOW SOME FIELDS, A,B,C
+LOW - 3 - SHOW ALL FIELDS, A,B,C,D,E,F
+
+FIRST MEDIUM
+
+WE NEED TO ITERATE OVER THE PHI VALUES AND FILTER THE VALUES BASED ON INPUT PHI VALUES.
+
+Config sheet - changes are required to bring up new dropdown
+OSM changes are required for discriminating the risk level of the fields..
+
+
+when PHI is Yes && phi access = HIGH
+
+PHI - YES -
+
+phi in UI side
+
+
+once the analsysis is done , please the details to wiki link
+deadline -
+clarification on below scenarios
+ 1.current behaviour in the UI
+ 2. 
+
+Area of changes
+1.admin side.(Roshith)
+Risk level values should be saved in the db.
+
+
+
+2.non admin side.(pallavi)
+osm changes
+
+3.report side.(Taha)
+
+
+
+4.syncing up admin and non admin side.(elavarsan)
+1.refer to the db to get the risk level value.
+
+

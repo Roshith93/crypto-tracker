@@ -109,3 +109,23 @@ export const chartDays = [
     value: 365,
   },
 ]
+
+export const chartOptions = (coinName, currency) => {
+ return {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: `${coinName.toUpperCase()} to ${currency} Chart`,
+    },
+    elements: {
+      point: {
+        radius: 1,
+      },
+    },
+  },
+}
+}

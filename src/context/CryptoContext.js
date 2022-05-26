@@ -150,6 +150,7 @@ export const CryptoTrackerProvider = ({ children }) => {
         isLoading,
         coinDetail,
         setCoinFromParams,
+        coinFromParams,
         setDays,
         days,
         coinChart,

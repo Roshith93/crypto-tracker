@@ -19,7 +19,7 @@ import { CryptoTrackerContext } from '../context/CryptoContext'
 const NavBar = () => {
   let navigate = useNavigate()
   function handleClick() {
-    navigate('/')
+    navigate(-1)
   }
 
   const { colorMode, currency, handleCurrencyChange } =

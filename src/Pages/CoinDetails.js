@@ -31,7 +31,6 @@ const CoinDetails = () => {
     categories,
     market_data: {current_price : {inr, usd}, market_cap:{inr:mINR, usd:mUSD}}
   } = coinDetail
-  // console.log(colorArray[Math.floor(Math.random() * 5 + 1)])
   return (
     <div className={cpContainer}>
       <div className={cpSidebar}>
@@ -80,7 +79,6 @@ const CoinDetails = () => {
         
       </div>
       <CoinInfo coinId={id} />
-      {`CoinPage ${params.id}`}
     </div>
   )
 }

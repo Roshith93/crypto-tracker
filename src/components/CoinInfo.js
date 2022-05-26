@@ -13,7 +13,8 @@ import { Line } from 'react-chartjs-2'
 
 import { CryptoTrackerContext } from '../context/CryptoContext'
 import { useStyles } from '../constant/ComponentStyles'
-import { chartDays } from '../constant/configuration'
+import { chartDays, chartOptions } from '../constant/configuration'
+import { BasicButtons } from '../components/Buttons'
 import CircularIndeterminate from './ProgressBar'
 
 ChartJS.register(
@@ -26,26 +27,11 @@ ChartJS.register(
   Legend
 )
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-    elements: {
-      point: {
-        radius: 1,
-      },
-    },
-  },
-}
+
 
 const CoinInfo = ({ coinId }) => {
-  const { coinChart, days, currency } = useContext(CryptoTrackerContext)
+  const { coinChart, days, currency, setDays , coinFromParams} =
+    useContext(CryptoTrackerContext)
   const { chartContainer, chartButtons } = useStyles()
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
@@ -68,18 +54,23 @@ const CoinInfo = ({ coinId }) => {
     ],
   }
 
-  console.log('data', data)
-  console.log('coinChart', coinChart)
   return (
     <div className={chartContainer}>
       {!coinChart ? (
         <CircularIndeterminate />
       ) : (
         <>
-          <Line options={options} data={data} />
+          <Line options={chartOptions(coinFromParams, currency)} data={data} />
           <div className={chartButtons}>
             {chartDays.map((el) => {
-              return <button key={el.value}>{el.label}</button>
+              return (
+                <BasicButtons
+                  keys={el.value}
+                  val={el.label}
+                  onClick={() => setDays(el.value)}
+                  isSelected={days === el.value}
+                />
+              )
             })}
           </div>
         </>
