@@ -79,7 +79,7 @@ const CoinDetails = () => {
         &nbsp;
         
       </div>
-      <CoinInfo />
+      <CoinInfo coinId={id} />
       {`CoinPage ${params.id}`}
     </div>
   )

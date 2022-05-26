@@ -6,6 +6,7 @@ import {
   getTrendingCoins,
   getCoinList,
   getSingleCoin,
+  getHistoricalChart,
 } from '../constant/configuration'
 
 export const CryptoTrackerContext = createContext()
@@ -20,6 +21,9 @@ export const CryptoTrackerProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [coinDetail, setCoinDetail] = useState([])
   const [coinFromParams, setCoinFromParams] = useState('bitcoin')
+  const [days, setDays] = useState('365')
+  const [coinChart, setCoinChart] = useState([])
+  const [coinId, setCoinId] = useState('')
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value)
@@ -113,7 +117,24 @@ export const CryptoTrackerProvider = ({ children }) => {
   useEffect(() => {
     getSingleCoinDetails()
   }, [coinFromParams])
-  
+
+  const getHistoricalData = async () => {
+    const {
+      status,
+      data: { prices },
+    } = await axios.get(getHistoricalChart(coinFromParams, days, currency))
+    try {
+      if (status === 200) {
+        setCoinChart(prices)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  useEffect(() => {
+    getHistoricalData()
+  }, [currency, days])
+
   return (
     <CryptoTrackerContext.Provider
       value={{
@@ -129,6 +150,11 @@ export const CryptoTrackerProvider = ({ children }) => {
         isLoading,
         coinDetail,
         setCoinFromParams,
+        setDays,
+        days,
+        coinChart,
+        coinId,
+        setCoinId,
       }}
     >
       {children}
