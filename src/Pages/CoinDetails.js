@@ -72,7 +72,7 @@ const CoinDetails = () => {
           </span>
         </div>
         <Typography variant='subtitle1' className={cpDescription}>
-          {parse(en).split(', ')[0]}
+          {parse(en.split('. ')[0])}
         </Typography>{' '}
         &nbsp;
         <Stack direction='column' spacing={1}>
