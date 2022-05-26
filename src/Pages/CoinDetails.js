@@ -13,15 +13,22 @@ import LinearIndeterminate from '../components/ProgressBar'
 
 const CoinDetails = () => {
   let params = useParams()
-  let { setCoinFromParams, coinDetail, symbol, currency } = useContext(CryptoTrackerContext)
-  let { cpContainer, cpSidebar, cpHeading, cpDescription, cpMarketData, cpSpanTitle } =
-    useStyles()
+  let { setCoinFromParams, coinDetail, symbol, currency } =
+    useContext(CryptoTrackerContext)
+  let {
+    cpContainer,
+    cpSidebar,
+    cpHeading,
+    cpDescription,
+    cpMarketData,
+    cpSpanTitle,
+  } = useStyles()
 
   useEffect(() => {
     setCoinFromParams(params.id)
   }, [params.id])
 
-  if (Object.values(coinDetail).length === 0) return <LinearIndeterminate/>
+  if (Object.values(coinDetail).length === 0) return <LinearIndeterminate />
   let {
     image: { large },
     id,
@@ -29,7 +36,10 @@ const CoinDetails = () => {
     description: { en },
     market_cap_rank,
     categories,
-    market_data: {current_price : {inr, usd}, market_cap:{inr:mINR, usd:mUSD}}
+    market_data: {
+      current_price: { inr, usd },
+      market_cap: { inr: mINR, usd: mUSD },
+    },
   } = coinDetail
   return (
     <div className={cpContainer}>
@@ -41,20 +51,30 @@ const CoinDetails = () => {
         <div className={cpMarketData}>
           <span style={{ display: 'flex' }}>
             <Typography variant='h5' className={cpHeading}>
-             <span className={cpSpanTitle}>Rank : </span> {market_cap_rank}
+              <span className={cpSpanTitle}>Rank : </span> {market_cap_rank}
             </Typography>
           </span>
           <span style={{ display: 'flex' }}>
             <Typography variant='h5' className={cpHeading}>
-             <span className={cpSpanTitle}>Current Prize : </span> {currency === 'INR' ? `${symbol} ${numberWithCommas(inr)}` :  `${symbol} ${numberWithCommas(usd)}`}
+              <span className={cpSpanTitle}>Current Prize : </span>{' '}
+              {currency === 'INR'
+                ? `${symbol} ${numberWithCommas(inr)}`
+                : `${symbol} ${numberWithCommas(usd)}`}
             </Typography>
           </span>
           <span style={{ display: 'flex' }}>
             <Typography variant='h5' className={cpHeading}>
-             <span className={cpSpanTitle}>Market Cap : </span> {currency === 'INR' ? `${symbol} ${numberWithCommas(mINR)}` :  `${symbol} ${numberWithCommas(mUSD)}`}
+              <span className={cpSpanTitle}>Market Cap : </span>{' '}
+              {currency === 'INR'
+                ? `${symbol} ${numberWithCommas(mINR)}`
+                : `${symbol} ${numberWithCommas(mUSD)}`}
             </Typography>
           </span>
         </div>
+        <Typography variant='subtitle1' className={cpDescription}>
+          {parse(en).split(', ')[0]}
+        </Typography>{' '}
+        &nbsp;
         <Stack direction='column' spacing={1}>
           {categories.map((el, idx) => {
             return (
@@ -71,12 +91,6 @@ const CoinDetails = () => {
             )
           })}
         </Stack>
-        
-        <Typography variant='subtitle1' className={cpDescription}>
-          {parse(en)}
-        </Typography>{' '}
-        &nbsp;
-        
       </div>
       <CoinInfo coinId={id} />
     </div>
